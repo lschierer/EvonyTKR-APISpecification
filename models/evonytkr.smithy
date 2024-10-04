@@ -9,4 +9,7 @@ use aws.protocols#restJson1
 @restJson1
 service WebApi {
   version: "2024-10-03"
+  resources: [
+    General
+  ]
 }
