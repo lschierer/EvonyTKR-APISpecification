@@ -14,13 +14,37 @@ structure GeneralProperties {
   level: GeneralLevel
   @required
   type: GeneralKeys
-  // basicAttributes,
-  // builtInBook,
-  // EvAnsScores,
-  // otherBooks,
-  // specialities,
-
+  @required
+  builtInBook: Buff
+  otherBooks: Titles
+  @required
+  specialities: Specialities
+  basicAttributes: BasicAttributes
+  EvAnsScores: EvAnsScores
+  ComponentScores: ComponentScores
 }
+
+
+structure BasicAttributes {
+  @required
+  attack:               Float
+  attack_base:          Float
+  attack_increment:     Float
+  @required
+  defense:              Float
+  defense_base:         Float
+  defense_increment:    Float
+  @required
+  leadership:           Float
+  leadership_base:      Float
+  leadership_increment: Float
+  @required
+  politics:             Float
+  politics_base:        Float
+  politics_increment:   Float
+}
+
+
 
 /// The response from the API endpoint Contains a general and a Unique identifier. 
 resource General {
@@ -76,3 +100,20 @@ string GeneralName
 
 @range(min: 1, max: 45)
 integer GeneralLevel
+
+@pattern("^([A-Z][^0-9\n]+)$")
+string Title
+
+list Titles {
+  member: Title
+}
+
+map Speciality {
+  key: SpecialityLevels
+  value: Buff
+}
+
+@length(min: 3, max: 5)
+list Specialities {
+  member: Speciality
+}

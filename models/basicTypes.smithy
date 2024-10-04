@@ -18,13 +18,20 @@ structure BuffValue {
 }
 
 structure Buff {
-  @required
-  attribute: BuffAttributes
-
-  condition: BuffConditions
-  class: BuffClasses
-  inherited: Boolean
-  value: BuffValue
+  marchSizeIncrease:      Float
+  attackIncrease:         Float
+  DefenseIncreae:         Float
+  HPIncrease:             Float
+  GroundAttackDebuff:     Float
+  RangedAttackDebuff:     Float
+  MountedAttakDebuff:     Float
+  SiegeAttackDebuff:      Float
+  OverallAttackDebuff:    Float
+  GroundToughnessDebuff:  Float
+  RangedToughnessDebuff:  Float
+  MountedToughnessDebuff: Float
+  SiegeToughnessDebuff:   Float
+  OverallToughnessDebuff: Float
 }
 
 enum BuffAttributes {
