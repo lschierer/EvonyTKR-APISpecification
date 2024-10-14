@@ -1,0 +1,322 @@
+openapi: 3.1.0
+info:
+  title: Evony TKR API
+  version: 0.0.0
+  description: Allow users to obtain information on Generals, General Pairs, General Conflicts, General SkillBooks, General Specialities, and related information for Evony TKR
+paths:
+  /generals:
+    get:
+      tags:
+      - generals
+      summary: Get all Generals
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                title: GetAllGeneralsOk
+                required:
+                - data
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/GeneralSummary'
+          description: OK - Successful request with response body
+        '204':
+          $ref: '#/components/responses/NoContent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerErrror'
+      operationId: getAllGenerals
+  /generals/{name}:
+    get:
+      tags:
+      - generals
+      summary: Get a General by Name
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                title: GetAGeneralByNameOk
+                required:
+                - data
+                properties:
+                  data:
+                    $ref: '#/components/schemas/General'
+          description: OK - Successful request with response body
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerErrror'
+      parameters:
+      - $ref: '#/components/parameters/name'
+      - in: query
+        name: verbose
+        style: form
+        schema:
+          type: boolean
+        explode: true
+        required: false
+        description: return verbose results
+        allowReserved: false
+      - in: query
+        name: level
+        style: form
+        schema:
+          type: integer
+        explode: true
+        required: false
+        description: set the level of the general you want information about
+        allowReserved: false
+      description: 'Returns the general with the matching name. '
+      operationId: getAGeneralByName
+components:
+  schemas:
+    Buff:
+      type: object
+      required:
+      - attribute
+      - value
+      - unit
+      properties:
+        unit:
+          type: string
+        value:
+          type: integer
+        passive:
+          type: boolean
+        attribute:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/BuffAttributes'
+            - type: array
+              items:
+                $ref: '#/components/schemas/BuffAttributes'
+    General:
+      type: object
+      required:
+      - name
+      - level
+      - builtInBook
+      - otherBooks
+      - type
+      - specialities
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        level:
+          type: integer
+        otherBooks:
+          type: array
+          items:
+            type: string
+        builtInBook:
+          type: string
+        specialities:
+          anyOf:
+          - type: array
+            items:
+              type: string
+          - type: array
+            items:
+              $ref: '#/components/schemas/Speciality'
+          - type: array
+            items:
+              $ref: '#/components/schemas/SpecialityEffect'
+    Speciality:
+      type: object
+      required:
+      - name
+      - levels
+      properties:
+        name:
+          type: string
+        levels:
+          type: array
+          items:
+            $ref: '#/components/schemas/SpecialityLevels'
+    BuffAttributes:
+      oneOf:
+      - type: string
+    GeneralSummary:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+      description: The minimal information necessary to find a General
+      x-fiddle-dto-info:
+        baseSchemaName: General
+    AscendingLevels:
+      oneOf:
+      - type: string
+    BasicAttributes:
+      type: object
+      required:
+      - attack_base
+      - attack_increment
+      - defense_base
+      - defense_increment
+      - leadership_base
+      - leadership_increment
+      - politics_base
+      - politics_increment
+      properties:
+        attack:
+          type: integer
+        defense:
+          type: integer
+        politics:
+          type: integer
+        leadership:
+          type: integer
+        attack_base:
+          type: integer
+        defense_base:
+          type: integer
+        politics_base:
+          type: integer
+        leadership_base:
+          type: integer
+        attack_increment:
+          type: integer
+        defense_increment:
+          type: integer
+        politics_increment:
+          type: integer
+        leadership_increment:
+          type: integer
+    SpecialityLevel:
+      type: object
+      required:
+      - activeLevel
+      - Buffs
+      - activeLevel
+      - level
+      properties:
+        Buffs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Buff'
+        level:
+          oneOf:
+          - $ref: '#/components/schemas/SpecialityLevels'
+    SpecialityEffect:
+      type: object
+      required:
+      - activeLevel
+      - buff
+      properties:
+        buff:
+          type: array
+          items:
+            $ref: '#/components/schemas/Buff'
+        name:
+          type: string
+        activeLevel:
+          oneOf:
+          - $ref: '#/components/schemas/SpecialityLevels'
+      description: The Effective Buff Provided by a Speciality at a particular level
+      x-fiddle-dto-info:
+        baseSchemaName: Speciality
+    SpecialityLevels:
+      oneOf:
+      - type: string
+    BasicAttributesSummary:
+      type: object
+      properties:
+        attack:
+          type: integer
+        defense:
+          type: integer
+        politics:
+          type: integer
+        leadership:
+          type: integer
+        attack_base:
+          type: integer
+        defense_base:
+          type: integer
+        politics_base:
+          type: integer
+        leadership_base:
+          type: integer
+        attack_increment:
+          type: integer
+        defense_increment:
+          type: integer
+        politics_increment:
+          type: integer
+        leadership_increment:
+          type: integer
+      description: 'A summary form of the Basic Attributes, after they have been instantiated at a particular level and computed. '
+      x-fiddle-dto-info:
+        baseSchemaName: BasicAttributes
+  responses:
+    NotFound:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+      description: The server cannot find the requested resource. The endpoint may be invalid or the resource may no longer exist.
+    NoContent:
+      content:
+        application/json:
+          schema:
+            type: 'null'
+      description: The request was successful, but there is no content to return in the response.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              errors:
+                type: array
+                items:
+                  type: object
+                  required:
+                  - message
+                  properties:
+                    message:
+                      type: string
+              message:
+                type: string
+      description: The server could not understand the request due to invalid syntax. The client should modify the request and try again.
+    InternalServerErrror:
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+            - message
+            properties:
+              message:
+                type: string
+      description: The server encountered an unexpected condition that prevented it from fulfilling the request. Report the issue to the support team if it persists.
+  parameters:
+    name:
+      in: path
+      name: name
+      schema:
+        type: string
+      required: true
+tags:
+- name: generals
