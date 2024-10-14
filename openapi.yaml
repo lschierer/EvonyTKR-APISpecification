@@ -541,10 +541,9 @@ paths:
               schema:
                 properties:
                   data:
-                    oneOf: 
+                    oneOf:
                       - $ref: '#/components/schemas/Speciality'
                       - $ref: '#/components/schemas/SpecialityEffect'
                 required:
                   - data
                 type: object
-      
