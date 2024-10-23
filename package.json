@@ -1,0 +1,29 @@
+{
+  "name": "evonytkr-tips-apispecification",
+  "version": "1.0.0",
+  "description": "API Specification and Types for Evony TKR Tips",
+  "type": "module",
+  "scripts": {
+    "generate": "kubb generate",
+    "editor": "pnpm tsx ./server.ts"
+  },
+  "author": "Luke Schierer",
+  "license": "ISC",
+  "devDependencies": {
+    "@hono/node-server": "^1.13.2",
+    "@kubb/cli": "^3.0.0-beta.7",
+    "@kubb/core": "^3.0.0-beta.7",
+    "@kubb/oas": "^3.0.0-beta.7",
+    "@kubb/plugin-oas": "^3.0.0-beta.7",
+    "@kubb/plugin-ts": "^3.0.0-beta.7",
+    "@kubb/plugin-zod": "^3.0.0-beta.7",
+    "@types/express": "^5.0.0",
+    "@types/swagger-ui-dist": "^3.30.5",
+    "hono": "^4.6.6",
+    "swagger-ui-dist": "^5.17.14",
+    "tsx": "^4.19.1"
+  },
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
+}
