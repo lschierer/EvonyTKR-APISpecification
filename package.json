@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "generate": "kubb generate",
-    "editor": "pnpm tsx ./server.ts"
+    "editor": "dotenvx run -- pnpm tsx ./server.ts"
   },
   "author": "Luke Schierer",
   "license": "ISC",
@@ -24,6 +24,8 @@
     "tsx": "^4.19.1"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.20.1",
+    "dotenv": "^16.4.5",
     "zod": "^3.23.8"
   }
 }

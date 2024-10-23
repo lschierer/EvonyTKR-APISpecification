@@ -3,6 +3,9 @@ import { logger } from "hono/logger";
 import * as path from "path";
 import { cors } from "hono/cors";
 import { getRouterName, showRoutes } from "hono/dev";
+import * as dotenvx from "@dotenvx/dotenvx";
+
+dotenvx.config();
 
 import { serve, type HttpBindings } from "@hono/node-server";
 
