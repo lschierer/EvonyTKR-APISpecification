@@ -1,9 +1,9 @@
 openapi: 3.1.0
 info:
   description: >
-   Allow users to obtain information on Generals, General Pairs, General
-   Conflicts, General SkillBooks, General Specialities, and related 
-   information for Evony TKR
+    Allow users to obtain information on Generals, General Pairs, General
+    Conflicts, General SkillBooks, General Specialities, and related 
+    information for Evony TKR
   title: Evony TKR API
   version: 0.0.2
 components:
@@ -50,7 +50,7 @@ components:
       content:
         application/json:
           schema:
-            type: "null"
+            type: 'null'
       description: The request was successful, but there is no content to return in the response.
     NotFound:
       content:
@@ -90,12 +90,15 @@ components:
         - buffs
       type: object
     AscendingLevelNames:
-      description: 'A general Ascends as either a Red or a Purple General but not both. '
+      description: >
+        A general Ascends as either a Red or a Purple General but not both.
       oneOf:
         - $ref: '#/components/schemas/RedGeneralAscendingLevels'
         - $ref: '#/components/schemas/PurpleGeneralAscendingLevels'
     AscendingSummary:
-      description: 'The buffs provided foor a general ascended at a particualr number of stars. '
+      description: >
+        The buffs provided foor a general ascended at a particualr
+        number of stars.
       properties:
         activeLevel:
           $ref: '#/components/schemas/AscendingLevelNames'
@@ -110,7 +113,7 @@ components:
       x-fiddle-dto-info:
         baseSchemaName: Ascending
     BasicAttributes:
-      description: ""
+      description: ''
       properties:
         Attack:
           $ref: '#/components/schemas/BasicAttributesObject'
@@ -127,7 +130,7 @@ components:
         - Politics
       type: object
     BasicAttributesObject:
-      description: ""
+      description: ''
       properties:
         Base:
           format: float
@@ -178,7 +181,7 @@ components:
       x-fiddle-dto-info:
         baseSchemaName: BasicAttributes
     Buff:
-      description: ""
+      description: ''
       properties:
         attribute:
           oneOf:
@@ -193,7 +196,7 @@ components:
                 $ref: '#/components/schemas/Condition'
               type: array
         passive:
-          default:
+          default: null
           type: boolean
         value:
           properties:
@@ -203,7 +206,7 @@ components:
               type: number
             unit:
               default: percentage
-              description: ""
+              description: ''
               enum:
                 - flat
                 - percentage
@@ -217,7 +220,7 @@ components:
         - value
       type: object
     BuffAttributes:
-      description: ""
+      description: ''
       oneOf:
         - description: The many possible attributes that can be buffed
           enum:
@@ -310,16 +313,17 @@ components:
         - Reduces
       type: string
     General:
-      description: ""
+      description: ''
       properties:
         ascending:
           oneOf:
             - type: boolean
-            - $ref: '#/components/schemas/AscendingLevel'
+            - $ref: '#/components/schemas/Ascending'
+            - $ref: '#/components/schemas/AscendingSummary'
         basicAttributes:
           oneOf:
-            - $ref: '#/components/schemas/BasicAttributesObject'
-            - $ref: '#/components/schemas/BasicAttributesObjectSummary'
+            - $ref: '#/components/schemas/BasicAttributes'
+            - $ref: '#/components/schemas/BasicAttributesSummary'
         builtInBook:
           oneOf:
             - type: string
@@ -369,7 +373,7 @@ components:
         - basicAttributes
       type: object
     GeneralEvaluationTypes:
-      description: ""
+      description: ''
       enum:
         - Ground_Specialist
         - Ranged_Specialist
@@ -464,7 +468,7 @@ components:
       x-fiddle-dto-info:
         baseSchemaName: Speciality
     SpecialityLevel:
-      description: ""
+      description: ''
       properties:
         Buffs:
           items:
@@ -478,7 +482,7 @@ components:
       type: object
     SpecialityLevelNames:
       default: None
-      description: ""
+      description: ''
       enum:
         - None
         - Green
@@ -511,7 +515,7 @@ paths:
     get:
       operationId: getAllGenerals
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
@@ -525,11 +529,11 @@ paths:
                 title: GetAllGeneralsOk
                 type: object
           description: OK - Successful request with response body
-        "204":
+        '204':
           $ref: '#/components/responses/NoContent'
-        "400":
+        '400':
           $ref: '#/components/responses/BadRequest'
-        "500":
+        '500':
           $ref: '#/components/responses/InternalServerErrror'
       summary: Get all Generals
       tags:
@@ -559,7 +563,7 @@ paths:
             type: integer
           style: form
       responses:
-        "200":
+        '200':
           content:
             application/json:
               schema:
@@ -571,11 +575,11 @@ paths:
                 title: GetAGeneralByNameOk
                 type: object
           description: OK - Successful request with response body
-        "400":
+        '400':
           $ref: '#/components/responses/BadRequest'
-        "404":
+        '404':
           $ref: '#/components/responses/NotFound'
-        "500":
+        '500':
           $ref: '#/components/responses/InternalServerErrror'
       summary: Get a General by Name
       tags:
