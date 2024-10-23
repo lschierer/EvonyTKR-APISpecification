@@ -83,14 +83,24 @@ components:
       type: object
       required:
       - attribute
-      - value
-      - unit
-      - conditions
       properties:
-        unit:
-          type: string
-        value:
-          type: integer
+        '%%%9LVn':
+          type: object
+          required:
+          - unit
+          - value
+          properties:
+            unit:
+              enum:
+              - flat
+              - percentage
+              type: string
+              default: percentage
+              description: ''
+            value:
+              type: number
+              format: float
+              minimum: 0
         passive:
           type: boolean
         attribute:
@@ -107,8 +117,6 @@ components:
       type: object
       required:
       - name
-      - activeBuffs
-      - passiveBuffs
       properties:
         name:
           type: string
@@ -140,6 +148,7 @@ components:
           oneOf:
           - type: string
           - $ref: '#/components/schemas/Skin'
+          - type: 'null'
         type:
           oneOf:
           - $ref: '#/components/schemas/GeneralEvaluationTypes'
@@ -154,7 +163,6 @@ components:
           oneOf:
           - type: boolean
           - $ref: '#/components/schemas/AscendingLevel'
-          - $ref: '#/components/schemas/AscendingSummary'
         otherBooks:
           oneOf:
           - type: array
@@ -226,11 +234,11 @@ components:
       - buffs
       properties:
         name:
+          type: string
+        buffs:
           type: array
           items:
             $ref: '#/components/schemas/Buff'
-        buffs:
-          type: string
       description: 'A General''s Builtin Book '
     StandardBook:
       type: object
@@ -360,7 +368,6 @@ components:
       - activeLevel
       - Buffs
       - activeLevel
-      - level
       - active
       properties:
         Buffs:
@@ -368,8 +375,7 @@ components:
           items:
             $ref: '#/components/schemas/Buff'
         level:
-          oneOf:
-          - $ref: '#/components/schemas/SpecialityLevelNames'
+          type: boolean
         active:
           oneOf:
           - type: 'null'
@@ -377,14 +383,17 @@ components:
       description: ''
     AscendingSummary:
       type: object
+      required:
+      - activeLevel
+      - buffs
       properties:
-        levels:
+        buffs:
           type: array
           items:
-            type: string
-        ascendingLevelNamesId:
-          type: string
-      description: A simplified representation of a Ascending, typically used in list views.
+            $ref: '#/components/schemas/Buff'
+        activeLevel:
+          $ref: '#/components/schemas/AscendingLevelNames'
+      description: 'The buffs provided foor a general ascended at a particualr number of stars. '
       x-fiddle-dto-info:
         baseSchemaName: Ascending
     DebuffConditions:
@@ -454,32 +463,21 @@ components:
       description: ''
     BasicAttributesSummary:
       type: object
+      required:
+      - Attack
+      - Defense
+      - Leadership
+      - Politics
       properties:
-        attack:
-          type: integer
-        defense:
-          type: integer
-        politics:
-          type: integer
-        leadership:
-          type: integer
-        attack_base:
-          type: integer
-        defense_base:
-          type: integer
-        politics_base:
-          type: integer
-        leadership_base:
-          type: integer
-        attack_increment:
-          type: integer
-        defense_increment:
-          type: integer
-        politics_increment:
-          type: integer
-        leadership_increment:
-          type: integer
-      description: 'A summary form of the Basic Attributes, after they have been instantiated at a particular level and computed. '
+        Attack:
+          $ref: '#/components/schemas/BasicAttributesObjectSummary'
+        Defense:
+          $ref: '#/components/schemas/BasicAttributesObjectSummary'
+        Politics:
+          $ref: '#/components/schemas/BasicAttributesObjectSummary'
+        Leadership:
+          $ref: '#/components/schemas/BasicAttributesObjectSummary'
+      description: 'A summary of the values that the basic attributes have at a particular level, after they have been computed for that level. '
       x-fiddle-dto-info:
         baseSchemaName: BasicAttributes
     GeneralEvaluationTypes:
