@@ -422,8 +422,12 @@ components:
         baseSchemaName: Speciality
     AscendingLevelNames:
       oneOf:
+        - type: string
+          enum:
+            - none
         - $ref: "#/components/schemas/RedGeneralAscendingLevels"
         - $ref: "#/components/schemas/PurpleGeneralAscendingLevels"
+      default: none
       description: |
         A general Ascends as either a Red or a Purple General but not both.
     SpecialityLevelNames:
@@ -476,24 +480,22 @@ components:
         baseSchemaName: BasicAttributes
     GeneralEvaluationTypes:
       enum:
-        - Ground_Specialist
-        - Ranged_Specialist
-        - Mounted_Specialist
-        - Siege_Specialist
-        - Mayor
-        - Wall_General
-        - Officer
+        - ground_specialist
+        - ranged_specialist
+        - mounted_specialist
+        - siege_specialist
+        - mayor
+        - wall_general
+        - officer
       type: string
     RedGeneralAscendingLevels:
       enum:
-        - None
-        - 1Red
-        - 2Red
-        - 3Red
-        - 4Red
-        - 5Red
+        - 1red
+        - 2red
+        - 3red
+        - 4red
+        - 5red
       type: string
-      default: None
       description: AscendingLevels for Red Generals
     BasicAttributesObjectSummary:
       type: object
@@ -510,14 +512,12 @@ components:
         baseSchemaName: BasicAttributesObject
     PurpleGeneralAscendingLevels:
       enum:
-        - None
-        - 1Purple
-        - 2Purple
-        - 3Purple
-        - 4Purple
-        - 5Purple
+        - 1purple
+        - 2purple
+        - 3purple
+        - 4purple
+        - 5purple
       type: string
-      default: None
       description: Ascending Levels for Purple Generals
   responses:
     NotFound:
