@@ -22,6 +22,7 @@ paths:
                 properties:
                   data:
                     type: array
+                    maxItems: 1000
                     items:
                       $ref: "#/components/schemas/GeneralSummary"
           description: OK - Successful request with response body
@@ -34,18 +35,18 @@ paths:
       description: |
         a summary listing of all available generals
       operationId: getAllGenerals
-  /generals/byId/{name}:
+  /generals/byId/{id}:
     get:
       tags:
         - generals
-      summary: Get a General by Name
+      summary: Get a General by Id
       responses:
         "200":
           content:
             application/json:
               schema:
                 type: object
-                title: GetAGeneralByNameOk
+                title: GetAGeneralByIdOk
                 required:
                   - data
                 properties:
@@ -73,13 +74,16 @@ paths:
           style: form
           schema:
             type: integer
+            format: int32
+            minimum: 1
+            maximum: 45
           explode: true
           required: false
           description: set the level of the general you want information about
           allowReserved: false
-        - $ref: "#/components/parameters/name"
-      description: "Returns the general with the matching name. "
-      operationId: getAGeneralByName
+        - $ref: "#/components/parameters/id"
+      description: "Returns the general with the matching id."
+      operationId: getAGeneralById
 components:
   schemas:
     Buff:
@@ -111,12 +115,14 @@ components:
           oneOf:
             - $ref: "#/components/schemas/BuffAttributes"
             - type: array
+              maxItems: 10
               items:
                 $ref: "#/components/schemas/BuffAttributes"
         conditions:
           oneOf:
             - $ref: "#/components/schemas/Condition"
             - type: array
+              maxItems: 10
               items:
                 $ref: "#/components/schemas/Condition"
     Skin:
@@ -126,12 +132,16 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         activeBuffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         passiveBuffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
       description: Some generals have Skins or alternate outfits that add buffs
@@ -147,18 +157,24 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         skin:
           oneOf:
             - type: string
+              pattern: "^[a-zA-Z0-9_-\\s]+$"
+              maxLength: 1000
             - $ref: "#/components/schemas/Skin"
         type:
           oneOf:
             - $ref: "#/components/schemas/GeneralEvaluationTypes"
             - type: array
+              maxItems: 5
               items:
                 $ref: "#/components/schemas/GeneralEvaluationTypes"
         level:
           type: integer
+          format: int32
           maximum: 45
           minimum: 1
         ascending:
@@ -169,24 +185,35 @@ components:
         otherBooks:
           oneOf:
             - type: array
+              maxItems: 4
               items:
                 type: string
+                pattern: "^[a-zA-Z0-9_-\\s]+$"
+                maxLength: 1000
             - type: array
+              maxItems: 4
               items:
                 $ref: "#/components/schemas/StandardBook"
         builtInBook:
           oneOf:
             - type: string
+              pattern: "^[a-zA-Z0-9_-\\s]+$"
+              maxLength: 1000
             - $ref: "#/components/schemas/BuiltinBook"
         specialities:
           oneOf:
             - type: array
+              maxItems: 5
               items:
                 type: string
+                pattern: "^[a-zA-Z0-9_-\\s]+$"
+                maxLength: 1000
             - type: array
+              maxItems: 5
               items:
                 $ref: "#/components/schemas/Speciality"
             - type: array
+              maxItems: 5
               items:
                 $ref: "#/components/schemas/SpecialityEffect"
         basicAttributes:
@@ -200,6 +227,7 @@ components:
       properties:
         levels:
           type: array
+          maxItems: 15
           items:
             $ref: "#/components/schemas/AscendingLevel"
         activeLevel:
@@ -211,6 +239,7 @@ components:
             - $ref: "#/components/schemas/BuffCondition"
             - $ref: "#/components/schemas/DebuffConditions"
         - type: array
+          maxItems: 10
           items:
             anyOf:
               - $ref: "#/components/schemas/BuffCondition"
@@ -224,8 +253,11 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         levels:
           type: array
+          maxItems: 6
           items:
             $ref: "#/components/schemas/SpecialityLevel"
         activeLevel:
@@ -238,10 +270,15 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         text:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 2048
         buffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
       description: "A General's Builtin Book "
@@ -254,8 +291,11 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         buffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         level:
@@ -295,6 +335,7 @@ components:
       properties:
         buffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         level:
@@ -339,10 +380,13 @@ components:
       properties:
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         type:
           oneOf:
             - $ref: "#/components/schemas/GeneralEvaluationTypes"
             - type: array
+              maxItems: 5
               items:
                 $ref: "#/components/schemas/GeneralEvaluationTypes"
       description: The minimal information necessary to find a General
@@ -372,6 +416,7 @@ components:
       properties:
         Buffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         level:
@@ -384,6 +429,7 @@ components:
       properties:
         buffs:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         activeLevel:
@@ -406,14 +452,18 @@ components:
     SpecialityEffect:
       type: object
       required:
+        - name
         - activeLevel
       properties:
         buff:
           type: array
+          maxItems: 10
           items:
             $ref: "#/components/schemas/Buff"
         name:
           type: string
+          pattern: "^[a-zA-Z0-9_-\\s]+$"
+          maxLength: 1000
         activeLevel:
           oneOf:
             - $ref: "#/components/schemas/SpecialityLevelNames"
@@ -423,8 +473,7 @@ components:
     AscendingLevelNames:
       oneOf:
         - type: string
-          enum:
-            - none
+          const: none
         - $ref: "#/components/schemas/RedGeneralAscendingLevels"
         - $ref: "#/components/schemas/PurpleGeneralAscendingLevels"
       default: none
@@ -530,6 +579,8 @@ components:
             properties:
               message:
                 type: string
+                pattern: "^[a-zA-Z0-9_-\\s]+$"
+                maxLength: 1000
       description: The server cannot find the requested resource. The endpoint may be invalid or the resource may no longer exist.
     NoContent:
       content:
@@ -547,6 +598,7 @@ components:
             properties:
               errors:
                 type: array
+                maxItems: 10
                 items:
                   type: object
                   required:
@@ -554,8 +606,12 @@ components:
                   properties:
                     message:
                       type: string
+                      pattern: "^[a-zA-Z0-9_-\\s]+$"
+                      maxLength: 1000
               message:
                 type: string
+                pattern: "^[a-zA-Z0-9_-\\s]+$"
+                maxLength: 1000
       description: The server could not understand the request due to invalid syntax. The client should modify the request and try again.
     InternalServerErrror:
       content:
@@ -567,13 +623,17 @@ components:
             properties:
               message:
                 type: string
+                pattern: "^[a-zA-Z0-9_-\\s]+$"
+                maxLength: 1000
       description: The server encountered an unexpected condition that prevented it from fulfilling the request. Report the issue to the support team if it persists.
   parameters:
-    name:
+    id:
       in: path
-      name: name
+      name: id
       schema:
         type: string
+        format: uuid
+        maxLength: 100
       required: true
       description: |
         the name of the General
