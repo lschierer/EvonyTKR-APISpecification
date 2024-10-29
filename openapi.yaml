@@ -132,7 +132,6 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         activeBuffs:
           type: array
@@ -157,12 +156,10 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         skin:
           oneOf:
             - type: string
-              pattern: "^[a-zA-Z0-9_-\\s]+$"
               maxLength: 1000
             - $ref: "#/components/schemas/Skin"
         type:
@@ -188,7 +185,6 @@ components:
               maxItems: 4
               items:
                 type: string
-                pattern: "^[a-zA-Z0-9_-\\s]+$"
                 maxLength: 1000
             - type: array
               maxItems: 4
@@ -197,7 +193,6 @@ components:
         builtInBook:
           oneOf:
             - type: string
-              pattern: "^[a-zA-Z0-9_-\\s]+$"
               maxLength: 1000
             - $ref: "#/components/schemas/BuiltinBook"
         specialities:
@@ -206,7 +201,6 @@ components:
               maxItems: 5
               items:
                 type: string
-                pattern: "^[a-zA-Z0-9_-\\s]+$"
                 maxLength: 1000
             - type: array
               maxItems: 5
@@ -253,7 +247,6 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         levels:
           type: array
@@ -270,11 +263,9 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         text:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 2048
         buffs:
           type: array
@@ -291,7 +282,6 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         buffs:
           type: array
@@ -380,7 +370,6 @@ components:
       properties:
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         type:
           oneOf:
@@ -462,7 +451,6 @@ components:
             $ref: "#/components/schemas/Buff"
         name:
           type: string
-          pattern: "^[a-zA-Z0-9_-\\s]+$"
           maxLength: 1000
         activeLevel:
           oneOf:
@@ -579,7 +567,6 @@ components:
             properties:
               message:
                 type: string
-                pattern: "^[a-zA-Z0-9_-\\s]+$"
                 maxLength: 1000
       description: The server cannot find the requested resource. The endpoint may be invalid or the resource may no longer exist.
     NoContent:
@@ -606,11 +593,9 @@ components:
                   properties:
                     message:
                       type: string
-                      pattern: "^[a-zA-Z0-9_-\\s]+$"
                       maxLength: 1000
               message:
                 type: string
-                pattern: "^[a-zA-Z0-9_-\\s]+$"
                 maxLength: 1000
       description: The server could not understand the request due to invalid syntax. The client should modify the request and try again.
     InternalServerErrror:
@@ -623,7 +608,6 @@ components:
             properties:
               message:
                 type: string
-                pattern: "^[a-zA-Z0-9_-\\s]+$"
                 maxLength: 1000
       description: The server encountered an unexpected condition that prevented it from fulfilling the request. Report the issue to the support team if it persists.
   parameters:
