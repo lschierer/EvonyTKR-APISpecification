@@ -34,7 +34,7 @@ paths:
       description: |
         a summary listing of all available generals
       operationId: getAllGenerals
-  /generals/named/{name}:
+  /generals/byId/{name}:
     get:
       tags:
         - generals
