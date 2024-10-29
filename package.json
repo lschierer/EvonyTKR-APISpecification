@@ -10,23 +10,23 @@
   "author": "Luke Schierer",
   "license": "ISC",
   "devDependencies": {
-    "@hono/node-server": "^1.13.2",
-    "@kubb/cli": "^3.0.0-beta.7",
-    "@kubb/core": "^3.0.0-beta.7",
-    "@kubb/oas": "^3.0.0-beta.7",
-    "@kubb/plugin-oas": "^3.0.0-beta.7",
-    "@kubb/plugin-ts": "^3.0.0-beta.7",
-    "@kubb/plugin-zod": "^3.0.0-beta.7",
+    "@hono/node-server": "^1.13.3",
+    "@kubb/cli": "3.0.0-beta.9",
+    "@kubb/core": "3.0.0-beta.9",
+    "@kubb/oas": "3.0.0-beta.9",
+    "@kubb/plugin-oas": "3.0.0-beta.9",
+    "@kubb/plugin-ts": "3.0.0-beta.9",
+    "@kubb/plugin-zod": "3.0.0-beta.9",
     "@quobix/vacuum": "^0.14.2",
     "@types/express": "^5.0.0",
     "@types/swagger-ui-dist": "^3.30.5",
-    "hono": "^4.6.6",
+    "hono": "^4.6.8",
     "ibm-openapi-validator": "^1.25.0",
     "swagger-ui-dist": "^5.17.14",
-    "tsx": "^4.19.1"
+    "tsx": "^4.19.2"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.20.1",
+    "@dotenvx/dotenvx": "^1.21.0",
     "dotenv": "^16.4.5",
     "zod": "^3.23.8"
   }
