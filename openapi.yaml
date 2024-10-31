@@ -25,6 +25,14 @@ paths:
                     items:
                       $ref: "#/components/schemas/GeneralSummary"
                     maxItems: 1000
+            text/html:
+              schema:
+                type: string
+                maxLength: 10000
+            text/plain; charset=utf-8:
+              schema:
+                type: string
+                maxLength: 10000
           description: OK - Successful request with response body
         "204":
           $ref: "#/components/responses/NoContent"
@@ -296,7 +304,7 @@ components:
           items:
             $ref: "#/components/schemas/Buff"
           maxItems: 10
-      description: "A General's Builtin Book "
+      description: "A General's Builtin Book"
     StandardBook:
       type: object
       required:
