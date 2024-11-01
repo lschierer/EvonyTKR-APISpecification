@@ -76,7 +76,7 @@ paths:
         a summary listing of all available generals
   /generals/byId/{id}.json:
     get:
-      operationId: byIdJSON
+      operationId: getGeneralByIdJSON
       tags:
         - generals
       summary: Get a General by Id
@@ -100,27 +100,8 @@ paths:
         "500":
           $ref: "#/components/responses/InternalServerErrror"
       parameters:
-        - in: query
-          name: verbose
-          style: form
-          schema:
-            type: boolean
-          explode: true
-          required: false
-          description: return verbose results
-          allowReserved: false
-        - in: query
-          name: level
-          style: form
-          schema:
-            type: integer
-            format: int32
-            maximum: 45
-            minimum: 1
-          explode: true
-          required: false
-          description: set the level of the general you want information about
-          allowReserved: false
+        - $ref: "#/components/parameters/verbose"
+        - $ref: "#/components/parameters/level"
         - $ref: "#/components/parameters/id"
       description: Returns the general with the matching id.
   /generals/uuid/{type}/{name}:
@@ -723,6 +704,29 @@ components:
                 maxLength: 1000
       description: The server encountered an unexpected condition that prevented it from fulfilling the request. Report the issue to the support team if it persists.
   parameters:
+    verbose:
+      in: query
+      name: verbose
+      style: form
+      schema:
+        type: boolean
+      explode: true
+      required: false
+      description: return verbose results
+      allowReserved: false
+    level:
+      in: query
+      name: level
+      style: form
+      schema:
+        type: integer
+        format: int32
+        maximum: 45
+        minimum: 1
+      explode: true
+      required: false
+      description: set the level of the general you want information about
+      allowReserved: false
     id:
       in: path
       name: id
