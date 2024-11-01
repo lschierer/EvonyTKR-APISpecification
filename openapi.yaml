@@ -87,13 +87,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                title: GetAGeneralByIdOk
-                required:
-                  - data
-                properties:
-                  data:
-                    $ref: '#/components/schemas/General'
+                $ref: '#/components/schemas/General'
           description: OK - Successful request with response body
         '400':
           $ref: '#/components/responses/BadRequest'
