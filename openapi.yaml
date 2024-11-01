@@ -8,7 +8,7 @@ paths:
   /generals:
     get:
       tags:
-      - generals
+        - generals
       summary: Get all Generals
       responses:
         '200':
@@ -31,7 +31,7 @@ paths:
   /generals.txt:
     get:
       tags:
-      - generals
+        - generals
       summary: Get all Generals
       responses:
         '200':
@@ -54,7 +54,7 @@ paths:
   /generals.json:
     get:
       tags:
-      - generals
+        - generals
       summary: Get all Generals
       responses:
         '200':
@@ -80,7 +80,7 @@ paths:
   /generals/byId/{id}.json:
     get:
       tags:
-      - generals
+        - generals
       summary: Get a General by Id
       responses:
         '200':
@@ -90,7 +90,7 @@ paths:
                 type: object
                 title: GetAGeneralByIdOk
                 required:
-                - data
+                  - data
                 properties:
                   data:
                     $ref: '#/components/schemas/General'
@@ -102,15 +102,17 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerErrror'
       parameters:
-      - $ref: '#/components/parameters/verbose'
-      - $ref: '#/components/parameters/level'
-      - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/verbose'
+        - $ref: '#/components/parameters/level'
+        - $ref: '#/components/parameters/id'
+        - $ref: '#/components/parameters/AscendingLevel'
+        - $ref: '#/components/parameters/SpecialityLevel'
       description: Returns the general with the matching id.
       operationId: getGeneralByIdJSON
   /generals/uuid/{type}/{name}:
     get:
       tags:
-      - generals
+        - generals
       summary: 'Get a UUID for a type/name pair '
       responses:
         '200':
@@ -129,13 +131,13 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerErrror'
       parameters:
-      - $ref: '#/components/parameters/type'
-      - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/name'
       operationId: uuidForTypeAndNameHtml
   /generals/uuid/{type}/{name}.json:
     get:
       tags:
-      - generals
+        - generals
       summary: 'Get a UUID for a type/name pair '
       responses:
         '200':
@@ -154,27 +156,27 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerErrror'
       parameters:
-      - $ref: '#/components/parameters/type'
-      - $ref: '#/components/parameters/name'
+        - $ref: '#/components/parameters/type'
+        - $ref: '#/components/parameters/name'
       operationId: uuidForTypeAndNameJson
 components:
   schemas:
     Buff:
       type: object
       required:
-      - attribute
-      - value
+        - attribute
+        - value
       properties:
         value:
           type: object
           required:
-          - number
-          - unit
+            - number
+            - unit
           properties:
             unit:
               enum:
-              - flat
-              - percentage
+                - flat
+                - percentage
               type: string
               default: percentage
             number:
@@ -186,22 +188,22 @@ components:
           default: false
         attribute:
           oneOf:
-          - $ref: '#/components/schemas/BuffAttributes'
-          - type: array
-            items:
-              $ref: '#/components/schemas/BuffAttributes'
-            maxItems: 10
+            - $ref: '#/components/schemas/BuffAttributes'
+            - type: array
+              items:
+                $ref: '#/components/schemas/BuffAttributes'
+              maxItems: 10
         conditions:
           oneOf:
-          - $ref: '#/components/schemas/Condition'
-          - type: array
-            items:
-              $ref: '#/components/schemas/Condition'
-            maxItems: 10
+            - $ref: '#/components/schemas/Condition'
+            - type: array
+              items:
+                $ref: '#/components/schemas/Condition'
+              maxItems: 10
     Skin:
       type: object
       required:
-      - name
+        - name
       properties:
         name:
           type: string
@@ -220,28 +222,28 @@ components:
     General:
       type: object
       required:
-      - ascending
-      - basicAttributes
-      - builtInBook
-      - name
-      - specialities
-      - type
+        - ascending
+        - basicAttributes
+        - builtInBook
+        - name
+        - specialities
+        - type
       properties:
         name:
           type: string
           maxLength: 1000
         skin:
           oneOf:
-          - type: string
-            maxLength: 1000
-          - $ref: '#/components/schemas/Skin'
+            - type: string
+              maxLength: 1000
+            - $ref: '#/components/schemas/Skin'
         type:
           oneOf:
-          - $ref: '#/components/schemas/GeneralEvaluationTypes'
-          - type: array
-            items:
-              $ref: '#/components/schemas/GeneralEvaluationTypes'
-            maxItems: 5
+            - $ref: '#/components/schemas/GeneralEvaluationTypes'
+            - type: array
+              items:
+                $ref: '#/components/schemas/GeneralEvaluationTypes'
+              maxItems: 5
         level:
           type: integer
           format: int32
@@ -249,48 +251,48 @@ components:
           minimum: 1
         ascending:
           oneOf:
-          - type: boolean
-          - $ref: '#/components/schemas/Ascending'
-          - $ref: '#/components/schemas/AscendingSummary'
+            - type: boolean
+            - $ref: '#/components/schemas/Ascending'
+            - $ref: '#/components/schemas/AscendingSummary'
         otherBooks:
           oneOf:
-          - type: array
-            items:
-              type: string
-              maxLength: 1000
-            maxItems: 4
-          - type: array
-            items:
-              $ref: '#/components/schemas/StandardBook'
-            maxItems: 4
+            - type: array
+              items:
+                type: string
+                maxLength: 1000
+              maxItems: 4
+            - type: array
+              items:
+                $ref: '#/components/schemas/StandardBook'
+              maxItems: 4
         builtInBook:
           oneOf:
-          - type: string
-            maxLength: 1000
-          - $ref: '#/components/schemas/BuiltinBook'
+            - type: string
+              maxLength: 1000
+            - $ref: '#/components/schemas/BuiltinBook'
         specialities:
           oneOf:
-          - type: array
-            items:
-              type: string
-              maxLength: 1000
-            maxItems: 5
-          - type: array
-            items:
-              $ref: '#/components/schemas/Speciality'
-            maxItems: 5
-          - type: array
-            items:
-              $ref: '#/components/schemas/SpecialityEffect'
-            maxItems: 5
+            - type: array
+              items:
+                type: string
+                maxLength: 1000
+              maxItems: 5
+            - type: array
+              items:
+                $ref: '#/components/schemas/Speciality'
+              maxItems: 5
+            - type: array
+              items:
+                $ref: '#/components/schemas/SpecialityEffect'
+              maxItems: 5
         basicAttributes:
           oneOf:
-          - $ref: '#/components/schemas/BasicAttributes'
-          - $ref: '#/components/schemas/BasicAttributesSummary'
+            - $ref: '#/components/schemas/BasicAttributes'
+            - $ref: '#/components/schemas/BasicAttributesSummary'
     Ascending:
       type: object
       required:
-      - levels
+        - levels
       properties:
         levels:
           type: array
@@ -302,21 +304,21 @@ components:
       description: The overall effeects of Ascending a General
     Condition:
       oneOf:
-      - anyOf:
-        - $ref: '#/components/schemas/BuffCondition'
-        - $ref: '#/components/schemas/DebuffConditions'
-      - type: array
-        items:
-          anyOf:
-          - $ref: '#/components/schemas/BuffCondition'
-          - $ref: '#/components/schemas/DebuffConditions'
-        maxItems: 10
+        - anyOf:
+            - $ref: '#/components/schemas/BuffCondition'
+            - $ref: '#/components/schemas/DebuffConditions'
+        - type: array
+          items:
+            anyOf:
+              - $ref: '#/components/schemas/BuffCondition'
+              - $ref: '#/components/schemas/DebuffConditions'
+          maxItems: 10
       description: 'A condition is essentially an adverb for a Buff object. '
     Speciality:
       type: object
       required:
-      - levels
-      - name
+        - levels
+        - name
       properties:
         name:
           type: string
@@ -331,8 +333,8 @@ components:
     BuiltinBook:
       type: object
       required:
-      - name
-      - text
+        - name
+        - text
       properties:
         name:
           type: string
@@ -349,8 +351,8 @@ components:
     GeneralList:
       type: object
       required:
-      - type
-      - members
+        - type
+        - members
       properties:
         type:
           $ref: '#/components/schemas/GeneralEvaluationTypes'
@@ -362,9 +364,9 @@ components:
     StandardBook:
       type: object
       required:
-      - buffs
-      - level
-      - name
+        - buffs
+        - level
+        - name
       properties:
         name:
           type: string
@@ -382,32 +384,32 @@ components:
       description: Standard Books that can be added to a General
     BuffCondition:
       enum:
-      - Against_Monsters
-      - Attacking
-      - Defending
-      - During_SvS
-      - In_City
-      - In_Main_City
-      - Marching
-      - Reinforcing
-      - When_City_Mayor
-      - When_City_Mayor_for_This_SubCity
-      - When_Defending_Outside_the_Main_City
-      - When_Rallying
-      - When_the_Main_Defense_General
-      - When_an_Officer
-      - Brings_a_Dragon
-      - Brings_a_Dragon_to_the_Attack
-      - Brings_a_Dragon_or_Spirital_Beast
-      - Brings_a_Dragon_or_Spritial_Beast_to_the_Attack
-      - Leading_the_Army_to_Attack
+        - Against_Monsters
+        - Attacking
+        - Defending
+        - During_SvS
+        - In_City
+        - In_Main_City
+        - Marching
+        - Reinforcing
+        - When_City_Mayor
+        - When_City_Mayor_for_This_SubCity
+        - When_Defending_Outside_the_Main_City
+        - When_Rallying
+        - When_the_Main_Defense_General
+        - When_an_Officer
+        - Brings_a_Dragon
+        - Brings_a_Dragon_to_the_Attack
+        - Brings_a_Dragon_or_Spirital_Beast
+        - Brings_a_Dragon_or_Spritial_Beast_to_the_Attack
+        - Leading_the_Army_to_Attack
       type: string
       description: Some Buffs apply only conditionally
     AscendingLevel:
       type: object
       required:
-      - buffs
-      - level
+        - buffs
+        - level
       properties:
         buffs:
           type: array
@@ -419,38 +421,38 @@ components:
       description: The effect of one star of ascending
     BuffAttributes:
       oneOf:
-      - enum:
-        - Attack
-        - Attack_Speed
-        - Death_to_Survival
-        - Death_to_Soul
-        - Death_to_Wounded
-        - Defense
-        - Deserter_Capacity
-        - Double_Items_Drop_Rate
-        - HP
-        - Healing_Speed
-        - Hospital_Capacity
-        - Leadership
-        - Load
-        - March_Size_Capacity
-        - March_Time
-        - Marching_Speed
-        - Marching_Speed_to_Monsters
-        - Politics
-        - Rally_Capacity
-        - Range
-        - Resources_Production
-        - Stamina_Cost
-        - SubCity_Construction_Speed
-        - SubCity_Gold_Production
-        - SubCity_Training_Speed
-        - SubCity_Troop_Capacity
-        - Training_Capacity
-        - Training_Speed
-        - Wounded_to_Death
-        type: string
-        description: The many possible attributes that can be buffed
+        - enum:
+            - Attack
+            - Attack_Speed
+            - Death_to_Survival
+            - Death_to_Soul
+            - Death_to_Wounded
+            - Defense
+            - Deserter_Capacity
+            - Double_Items_Drop_Rate
+            - HP
+            - Healing_Speed
+            - Hospital_Capacity
+            - Leadership
+            - Load
+            - March_Size_Capacity
+            - March_Time
+            - Marching_Speed
+            - Marching_Speed_to_Monsters
+            - Politics
+            - Rally_Capacity
+            - Range
+            - Resources_Production
+            - Stamina_Cost
+            - SubCity_Construction_Speed
+            - SubCity_Gold_Production
+            - SubCity_Training_Speed
+            - SubCity_Troop_Capacity
+            - Training_Capacity
+            - Training_Speed
+            - Wounded_to_Death
+          type: string
+          description: The many possible attributes that can be buffed
     GeneralSummary:
       type: object
       properties:
@@ -459,21 +461,21 @@ components:
           maxLength: 1000
         type:
           oneOf:
-          - $ref: '#/components/schemas/GeneralEvaluationTypes'
-          - type: array
-            items:
-              $ref: '#/components/schemas/GeneralEvaluationTypes'
-            maxItems: 5
+            - $ref: '#/components/schemas/GeneralEvaluationTypes'
+            - type: array
+              items:
+                $ref: '#/components/schemas/GeneralEvaluationTypes'
+              maxItems: 5
       description: The minimal information necessary to find a General
       x-fiddle-dto-info:
         baseSchemaName: General
     BasicAttributes:
       type: object
       required:
-      - attack
-      - defense
-      - leadership
-      - politics
+        - attack
+        - defense
+        - leadership
+        - politics
       properties:
         attack:
           $ref: '#/components/schemas/BasicAttributesObject'
@@ -486,7 +488,7 @@ components:
     GeneralListItem:
       type: object
       required:
-      - name
+        - name
       properties:
         id:
           type: string
@@ -498,8 +500,8 @@ components:
     SpecialityLevel:
       type: object
       required:
-      - Buffs
-      - level
+        - Buffs
+        - level
       properties:
         Buffs:
           type: array
@@ -511,8 +513,8 @@ components:
     AscendingSummary:
       type: object
       required:
-      - activeLevel
-      - buffs
+        - activeLevel
+        - buffs
       properties:
         buffs:
           type: array
@@ -527,20 +529,20 @@ components:
         baseSchemaName: Ascending
     DebuffConditions:
       enum:
-      - Enemy
-      - Enemy_in_City
-      - Reduces_Enemy
-      - Reduces_Enemy_in_Attack
-      - Reduces_Enemy_with_a_Dragon
-      - Reduces_Enemy_with_a_Dragon_or_Spiritual_Beast
-      - Reduces
+        - Enemy
+        - Enemy_in_City
+        - Reduces_Enemy
+        - Reduces_Enemy_in_Attack
+        - Reduces_Enemy_with_a_Dragon
+        - Reduces_Enemy_with_a_Dragon_or_Spiritual_Beast
+        - Reduces
       type: string
       description: Some Buffs are in fact Debuffs
     SpecialityEffect:
       type: object
       required:
-      - name
-      - activeLevel
+        - name
+        - activeLevel
       properties:
         buff:
           type: array
@@ -552,35 +554,35 @@ components:
           maxLength: 1000
         activeLevel:
           oneOf:
-          - $ref: '#/components/schemas/SpecialityLevelNames'
+            - $ref: '#/components/schemas/SpecialityLevelNames'
       description: The Effective Buff Provided by a Speciality at a particular level
       x-fiddle-dto-info:
         baseSchemaName: Speciality
     AscendingLevelNames:
       oneOf:
-      - type: string
-        const: none
-      - $ref: '#/components/schemas/RedGeneralAscendingLevels'
-      - $ref: '#/components/schemas/PurpleGeneralAscendingLevels'
+        - type: string
+          const: none
+        - $ref: '#/components/schemas/RedGeneralAscendingLevels'
+        - $ref: '#/components/schemas/PurpleGeneralAscendingLevels'
       default: none
       description: |
         A general Ascends as either a Red or a Purple General but not both.
     SpecialityLevelNames:
       enum:
-      - None
-      - Green
-      - Blue
-      - Purple
-      - Orange
-      - Gold
+        - None
+        - Green
+        - Blue
+        - Purple
+        - Orange
+        - Gold
       type: string
       default: None
     BasicAttributesObject:
       type: object
       required:
-      - base
-      - increment
-      - total
+        - base
+        - increment
+        - total
       properties:
         base:
           type: number
@@ -597,10 +599,10 @@ components:
     BasicAttributesSummary:
       type: object
       required:
-      - attack
-      - defense
-      - leadership
-      - politics
+        - attack
+        - defense
+        - leadership
+        - politics
       properties:
         attack:
           $ref: '#/components/schemas/BasicAttributesObjectSummary'
@@ -615,21 +617,21 @@ components:
         baseSchemaName: BasicAttributes
     GeneralEvaluationTypes:
       enum:
-      - ground_specialist
-      - ranged_specialist
-      - mounted_specialist
-      - siege_specialist
-      - mayor
-      - wall_general
-      - officer
+        - ground_specialist
+        - ranged_specialist
+        - mounted_specialist
+        - siege_specialist
+        - mayor
+        - wall_general
+        - officer
       type: string
     RedGeneralAscendingLevels:
       enum:
-      - 1red
-      - 2red
-      - 3red
-      - 4red
-      - 5red
+        - 1red
+        - 2red
+        - 3red
+        - 4red
+        - 5red
       type: string
       description: AscendingLevels for Red Generals
     BasicAttributesObjectSummary:
@@ -647,11 +649,11 @@ components:
         baseSchemaName: BasicAttributesObject
     PurpleGeneralAscendingLevels:
       enum:
-      - 1purple
-      - 2purple
-      - 3purple
-      - 4purple
-      - 5purple
+        - 1purple
+        - 2purple
+        - 3purple
+        - 4purple
+        - 5purple
       type: string
       description: Ascending Levels for Purple Generals
   responses:
@@ -661,7 +663,7 @@ components:
           schema:
             type: object
             required:
-            - message
+              - message
             properties:
               message:
                 type: string
@@ -679,14 +681,14 @@ components:
           schema:
             type: object
             required:
-            - message
+              - message
             properties:
               errors:
                 type: array
                 items:
                   type: object
                   required:
-                  - message
+                    - message
                   properties:
                     message:
                       type: string
@@ -702,7 +704,7 @@ components:
           schema:
             type: object
             required:
-            - message
+              - message
             properties:
               message:
                 type: string
@@ -773,11 +775,12 @@ components:
         type: array
         items:
           $ref: '#/components/schemas/SpecialityLevelNames'
+        maxItems: 5
       explode: true
       description: Generals have speciality levels, when you ask for one, you may want that general with specialities at specific levels.
       allowReserved: false
       allowEmptyValue: false
 tags:
-- name: generals
-  description: |
-    items dealing with generals
+  - name: generals
+    description: |
+      items dealing with generals
