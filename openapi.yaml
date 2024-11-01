@@ -98,9 +98,15 @@ paths:
                 maxLength: 100
             application/json:
               schema:
-                type: string
-                format: uuid
-                maxLength: 100
+                uuidResponse:
+                  type: object
+                  required:
+                    - UUID
+                  properties:
+                    UUID:
+                      type: string
+                      format: uuid
+                      maxLength: 100
           description: OK - Successful request with response body containing the UUID for the general
         "204":
           $ref: "#/components/responses/NoContent"
