@@ -759,6 +759,7 @@ components:
       allowReserved: false
     AscendingLevel:
       in: query
+      required: false
       name: AscendingLevel
       style: form
       schema:
@@ -769,6 +770,7 @@ components:
       allowEmptyValue: false
     SpecialityLevel:
       in: query
+      required: false
       name: SpecialityLevel
       style: form
       schema:
