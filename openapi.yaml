@@ -89,7 +89,16 @@ paths:
             text/html:
               schema:
                 type: string
-                title: UuidForTypeAndNameHtmlOk
+                format: uuid
+                maxLength: 100
+            text/plain:
+              schema:
+                type: string
+                format: uuid
+                maxLength: 100
+            application/json:
+              schema:
+                type: string
                 format: uuid
                 maxLength: 100
           description: OK - Successful request with response body containing the UUID for the general
@@ -103,32 +112,7 @@ paths:
         - $ref: "#/components/parameters/extension"
         - $ref: "#/components/parameters/type"
         - $ref: "#/components/parameters/name"
-      operationId: uuidForTypeAndNameHtml
-  /generals/uuid/{type}/{name}.json:
-    get:
-      tags:
-        - generals
-      summary: "Get a UUID for a type/name pair "
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                type: string
-                title: UuidForTypeAndNameJsonOk
-                format: uuid
-                maxLength: 100
-          description: OK - Successful request with response body containing the UUID for the general
-        "204":
-          $ref: "#/components/responses/NoContent"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "500":
-          $ref: "#/components/responses/InternalServerErrror"
-      parameters:
-        - $ref: "#/components/parameters/type"
-        - $ref: "#/components/parameters/name"
-      operationId: uuidForTypeAndNameJson
+      operationId: uuidForTypeAndName
 components:
   schemas:
     Buff:
